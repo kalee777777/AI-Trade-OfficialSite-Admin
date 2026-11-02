@@ -65,12 +65,12 @@ async function init(): Promise<void> {
   }
 }
 
-/** 本地文件模式：WAL + busy_timeout，容忍多进程（如 next build 多 worker）并发初始化。 */
+/** 本地文件模式：busy_timeout 先行（WAL 切换本身需要等锁），容忍多进程并发初始化。 */
 async function prepareConnection(c: Client): Promise<void> {
   if (!resolveUrl().startsWith('file:')) return;
   try {
-    await c.execute('PRAGMA journal_mode = WAL');
     await c.execute('PRAGMA busy_timeout = 10000');
+    await c.execute('PRAGMA journal_mode = WAL');
   } catch {
     // 容错：PRAGMA 失败不阻塞启动
   }
