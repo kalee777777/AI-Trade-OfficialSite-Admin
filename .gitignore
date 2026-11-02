@@ -32,3 +32,6 @@ yarn-error.log*
 # vercel
 .vercel
 *.tsbuildinfo
+
+# 运行时数据库（本地模式；内容首次启动自动从 data/seed.json 灌入）
+/data/*.db*

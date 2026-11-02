@@ -1,18 +1,16 @@
 import { NextResponse } from 'next/server';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { sql } from 'drizzle-orm';
+import { db, ensureDb } from '@/db';
+import { inquiries } from '@/db/schema';
 
 /**
- * 询盘提交接口（POST /api/inquiries）
- * - 防垃圾：honeypot 字段 + 提交耗时检测 + 每 IP 限流（内存窗口，P2 换 DB 后跨实例生效）
- * - 持久化：P1 写本地 data/inquiries.local.json（本地/自托管可用）；
- *   Vercel 等无状态文件系统下写入会失败——P2 引入数据库双模式后解决。
- * - 同步：配套 GET /api/sync/inquiries 供 AI-Trade-Workbench 拉取（P3 阶段实现，
- *   契约见 docs/CONTRACT-inquiry-sync.md）。
+ * 询盘提交接口（POST /api/inquiries）—— P2 起落库（本地 SQLite / Turso 双模式）。
+ * - 防垃圾：honeypot 字段 + 提交耗时检测 + 每 IP 限流（内存窗口）
+ * - 配套：GET /api/sync/inquiries（P3）供 AI-Trade-Workbench 持 Key 拉取，
+ *   契约见 docs/CONTRACT-inquiry-sync.md。
  */
 export const dynamic = 'force-dynamic';
 
-const STORE_FILE = path.join(process.cwd(), 'data', 'inquiries.local.json');
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 5;
 const hits = new Map<string, number[]>();
@@ -33,19 +31,11 @@ function clean(value: unknown, maxLen: number): string {
   return typeof value === 'string' ? value.trim().slice(0, maxLen) : '';
 }
 
-async function loadStore(): Promise<{ inquiries: Record<string, unknown>[] }> {
-  try {
-    const raw = await fs.readFile(STORE_FILE, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return { inquiries: [] };
-  }
-}
-
-function makeId(existing: number): string {
+async function makeId(): Promise<string> {
   const d = new Date();
   const ymd = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
-  return `INQ-${ymd}-${String(existing + 1).padStart(4, '0')}`;
+  const rows = await db.select({ c: sql<number>`count(*)` }).from(inquiries);
+  return `INQ-${ymd}-${String(Number(rows[0]?.c ?? 0) + 1).padStart(4, '0')}`;
 }
 
 export async function POST(req: Request) {
@@ -75,9 +65,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Please fill in a valid name, email and message.' }, { status: 400 });
   }
 
-  const store = await loadStore();
   const record = {
-    id: makeId(store.inquiries.length),
+    id: await makeId(),
     createdAt: new Date().toISOString(),
     name,
     email,
@@ -90,14 +79,13 @@ export async function POST(req: Request) {
     pageUrl: clean(body.pageUrl, 500),
     status: 'new',
   };
-  store.inquiries.push(record);
 
   try {
-    await fs.mkdir(path.dirname(STORE_FILE), { recursive: true });
-    await fs.writeFile(STORE_FILE, JSON.stringify(store, null, 2), 'utf-8');
+    await ensureDb();
+    await db.insert(inquiries).values(record);
   } catch (err) {
-    // Serverless 文件系统只读：询盘本次不落盘（P2 数据库模式解决），不阻塞用户
-    console.error('[inquiries] local persist failed:', err);
+    console.error('[inquiries] persist failed:', err);
+    return NextResponse.json({ ok: false, error: 'Storage error, please try again later.' }, { status: 500 });
   }
 
   return NextResponse.json({ ok: true, id: record.id });

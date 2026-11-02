@@ -12,12 +12,12 @@ import {
 } from '@/components/ui/table';
 import { getProducts, getProductBySlug, getCategoryBySlug, getRelatedProducts, getSettings, getSiteUrl } from '@/lib/content';
 
-export function generateStaticParams() {
-  return getProducts().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getProducts()).map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const product = getProductBySlug(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const product = await getProductBySlug(params.slug);
   if (!product) return {};
   return {
     title: `${product.name} — ${product.tagline.replace(/^\[PLACEHOLDER\]\s*/, '')}`,
@@ -32,14 +32,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 /** 产品详情页：规格表 / 特点 / FAQ / 可直引规格句（GEO）/ 相关产品 / 询盘 CTA（带产品预选）。 */
-export default function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
+  const product = await getProductBySlug(params.slug);
   if (!product) notFound();
 
-  const category = getCategoryBySlug(product.categorySlug);
-  const related = getRelatedProducts(product);
-  const settings = getSettings();
-  const base = getSiteUrl();
+  const [category, related, settings, base] = await Promise.all([
+    getCategoryBySlug(product.categorySlug),
+    getRelatedProducts(product),
+    getSettings(),
+    getSiteUrl(),
+  ]);
 
   const productJsonLd = {
     '@context': 'https://schema.org',

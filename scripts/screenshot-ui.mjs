@@ -12,11 +12,15 @@ let chromium;
 try {
   ({ chromium } = require('playwright'));
 } catch {
-  console.error(
-    '缺少 playwright 依赖。安装方式：npm i -D playwright && npx playwright install chromium\n' +
-      '（已有 playwright 的项目可设环境变量 PLAYWRIGHT_MODULES 指向其 node_modules 目录）',
-  );
-  process.exit(1);
+  if (process.env.PLAYWRIGHT_FROM) {
+    ({ chromium } = createRequire(process.env.PLAYWRIGHT_FROM)('playwright'));
+  } else {
+    console.error(
+      '缺少 playwright 依赖。安装方式：npm i -D playwright && npx playwright install chromium\n' +
+        '（已有 playwright 的项目可设环境变量 PLAYWRIGHT_FROM 指向其 package.json）',
+    );
+    process.exit(1);
+  }
 }
 
 const OUT_DIR = path.join(process.cwd(), 'docs', 'assets');

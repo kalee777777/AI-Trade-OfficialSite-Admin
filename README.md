@@ -12,13 +12,22 @@
 
 - **开箱即用的外贸站结构**：首页 / 产品（分类+详情）/ 关于 / 案例 / 新闻 / 询盘 / 联系，全站英文（面向海外买家）
 - **内置 shadcn/ui 组件库（MIT）**：16 个常用组件源码直接进仓库（Button/表单/Card/Accordion/Sheet/Dialog/Table 等），AI 工具最熟悉，改样式/加组件零门槛；`components.json` 已配好，`npx shadcn@latest add xxx` 可继续追加
-- **零代码 Admin 后台**（P2 开发中）：产品 / 询盘 / 内容 / 站点设置全部后台可视化修改
+- **零代码 Admin 后台**：产品/分类/Banner/新闻/案例/询盘/页面区块/站点设置全部后台可视化修改，**保存即前台同步更新**（ISR）；询盘可筛选、改状态、导出 CSV，并可签发 API Key 给工作台同步
 - **SEO 全套内建**：全站 SSG 静态生成、每页独立 meta、自动 sitemap.xml / robots.txt、JSON-LD 结构化数据（Organization / Product / Article / Breadcrumb / FAQ）
 - **GEO 前瞻**（让 AI 搜索推荐你）：放行主流 AI 爬虫（GPTBot / ClaudeBot / PerplexityBot…）、自动生成 `llms.txt`、产品页「可直引规格句」区块
 - **询盘获客闭环**：智能询盘表单（蜜罐 + 限流防垃圾）→ 落库 → Admin 管理 / CSV 导出 → API 同步到 AI-Trade-Workbench
 - **产品数据三处联动**：Admin 改一次产品 → 导航下拉、产品页、询盘表单选项自动更新
 - **占位内容规范**：Product A / B / C / D 占位体系，全部标注 `[PLACEHOLDER]`，内置 SVG 占位图零版权风险
 - **一键换肤**：品牌色等设计 token 集中在 `globals.css`（HSL 变量），改 4 个变量全站生效（或让 AI 帮你改）
+
+## 🔐 Admin 管理后台
+
+本地跑起来后访问 <http://localhost:3000/admin>：
+
+- **默认密码 `admin123`**（可用 `.env` 的 `ADMIN_PASSWORD` 自定义初始密码）——登录后请立即在「设置 → 修改密码」改掉（密码存数据库，全平台生效）
+- **数据库零配置**：首次启动自动建 SQLite 库（`data/site.db`）并灌入模板内容；后台所有修改保存后**前台即时更新**
+- **Vercel 部署**：免费版文件系统不持久，需在 [Turso](https://turso.tech)（免费额度）建库后配置 `DATABASE_URL` + `DATABASE_AUTH_TOKEN` 两个环境变量——本地/云端同一套代码
+- 后台能力：产品（含规格表/FAQ 嵌套编辑）/ 分类 / Banner / 新闻 / 案例 / **询盘（筛选·状态流转·CSV 导出）** / 页面区块（首页数据/优势/关于/导航菜单）/ 站点设置（公司信息/联系方式/SEO）/ 修改密码 / **API Key 签发**（供 AI-Trade-Workbench 同步询盘）
 
 ## 🚀 快速开始（本地）
 
@@ -47,8 +56,9 @@ npm run dev        # 打开 http://localhost:3000
 ## 🗺️ 开发路线
 
 - [x] **P1 前台**：7 类页面 + Product A–D 占位 + SEO/GEO 全套 + 询盘 API
-- [ ] **P2 Admin 后台**：六系统（仪表盘/产品/询盘/内容/设置/账号）+ 数据库双模式（本地 SQLite / Turso）
-- [ ] **P3 询盘互通**：`/api/sync/inquiries` + API Key 管理，对接 AI-Trade-Workbench 自动同步
+- [x] **P1.5 UI 组件库**：shadcn/ui 16 组件内置 + 页面换装 + `/showcase` 演示页
+- [x] **P2 Admin 后台**：九大管理页 + 数据库双模式（本地 SQLite / Turso）+ iron-session 鉴权 + CSV 导出 + API Key（E2E 9/9 通过）
+- [ ] **P3 询盘互通**：`/api/sync/inquiries`，对接 AI-Trade-Workbench 自动同步（Key 签发已就绪）
 - [ ] **P6 完整文档**：小白部署图文教程 / AI 提示词库 / FAQ 手册
 
 ## 🤖 用 AI 改站（不用会写代码）

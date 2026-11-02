@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InquiryForm from '@/components/InquiryForm';
 import { Button } from '@/components/ui/button';
@@ -13,10 +12,11 @@ export const metadata: Metadata = {
 };
 
 /** 询盘中心：表单 + 信任背书侧栏。产品下拉与全站产品数据同源。 */
-export default function InquiryPage() {
-  const settings = getSettings();
-  const categories = getCategories();
-  const productOptions = getProducts().map((p) => ({
+export default async function InquiryPage() {
+  const [settings, categories, products] = await Promise.all([
+    getSettings(), getCategories(), getProducts(),
+  ]);
+  const productOptions = products.map((p) => ({
     name: p.name,
     slug: p.slug,
     category: categories.find((c) => c.slug === p.categorySlug)?.name ?? 'Products',
@@ -39,7 +39,7 @@ export default function InquiryPage() {
         </div>
 
         <aside className="space-y-6">
-          <div className="card bg-brand-tint p-6">
+          <div className="card bg-accent p-6">
             <h2 className="text-base font-bold text-ink">Why inquire directly?</h2>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>✔ Factory-direct quotation, no middlemen</li>

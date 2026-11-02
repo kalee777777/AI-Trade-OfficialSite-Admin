@@ -26,6 +26,8 @@ export interface Category {
   slug: string;
   name: string;
   description: string;
+  /** Admin 排序（小的在前；seed 时代可缺省） */
+  sort?: number;
 }
 
 export interface ProductSpec {
@@ -51,6 +53,8 @@ export interface Product {
   quotableLine: string;
   faq: FaqItem[];
   published: boolean;
+  /** Admin 排序（小的在前；seed 时代可缺省） */
+  sort?: number;
 }
 
 export interface Banner {
@@ -60,6 +64,7 @@ export interface Banner {
   ctaText: string;
   ctaHref: string;
   image: string;
+  sort?: number;
 }
 
 export interface TrustStat {
@@ -80,6 +85,7 @@ export interface CaseStudy {
   date: string;
   image: string;
   products: string[];
+  sort?: number;
 }
 
 export interface NewsPost {
@@ -88,6 +94,7 @@ export interface NewsPost {
   summary: string;
   content: string[];
   date: string;
+  sort?: number;
 }
 
 export interface AboutContent {

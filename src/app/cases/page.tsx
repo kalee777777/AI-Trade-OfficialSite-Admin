@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/cases' },
 };
 
-export default function CasesPage() {
-  const cases = getCases();
+export default async function CasesPage() {
+  const cases = await getCases();
 
   return (
     <div className="container-x py-10">
@@ -20,7 +20,7 @@ export default function CasesPage() {
       <div className="mt-10 grid gap-6 md:grid-cols-2">
         {cases.map((c) => (
           <Link key={c.slug} href={`/cases/${c.slug}`} className="card group overflow-hidden hover:shadow-lg">
-            <div className="aspect-[16/8] overflow-hidden bg-brand-tint">
+            <div className="aspect-[16/8] overflow-hidden bg-accent">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={c.image} alt={c.title}

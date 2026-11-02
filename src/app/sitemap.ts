@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { getSiteUrl, getProducts, getCases, getNews } from '@/lib/content';
 
-/** 自动 sitemap：静态页 + 全部产品 / 案例 / 新闻（Admin 增删内容后构建时自动更新）。 */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = getSiteUrl();
+/** 自动 sitemap：静态页 + 全部产品 / 案例 / 新闻（Admin 增删内容后自动更新）。 */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const base = await getSiteUrl();
+  const [products, cases, news] = await Promise.all([getProducts(), getCases(), getNews()]);
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -16,21 +17,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
   ];
 
-  const productPages: MetadataRoute.Sitemap = getProducts().map((p) => ({
+  const productPages: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${base}/products/${p.slug}`,
     lastModified: now,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
 
-  const casePages: MetadataRoute.Sitemap = getCases().map((c) => ({
+  const casePages: MetadataRoute.Sitemap = cases.map((c) => ({
     url: `${base}/cases/${c.slug}`,
     lastModified: new Date(c.date),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
 
-  const newsPages: MetadataRoute.Sitemap = getNews().map((n) => ({
+  const newsPages: MetadataRoute.Sitemap = news.map((n) => ({
     url: `${base}/news/${n.slug}`,
     lastModified: new Date(n.date),
     changeFrequency: 'monthly' as const,

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-import { getNavigation } from '@/lib/content';
+import type { NavItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -19,12 +19,15 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-/** 移动端折叠菜单：Sheet 侧边抽屉 + 产品分类手风琴（shadcn/ui）。 */
-export default function MobileNav({ grouped }: {
+/** 移动端折叠菜单：Sheet 侧边抽屉 + 产品分类手风琴（shadcn/ui）。导航数据由服务端 Header 传入。 */
+export default function MobileNav({
+  nav,
+  grouped,
+}: {
+  nav: NavItem[];
   grouped: { name: string; products: { name: string; href: string }[] }[];
 }) {
   const [open, setOpen] = useState(false);
-  const nav = getNavigation().filter((n) => !n.dropdown);
 
   return (
     <div className="lg:hidden">

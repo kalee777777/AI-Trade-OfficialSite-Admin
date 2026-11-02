@@ -26,7 +26,23 @@
 - [x] `prompts/ui-swap.md` 提示词手册：预设换肤/任意品牌色换肤/圆角风格/组件目录/高频场景（轮播/暗色/加组件/删演示页）/git 兜底/下指令三军规
 - [x] 效果图预览：`docs/assets/` 7 张（5 预设首页 + 产品详情页 + 演示页全览，playwright 自动生成，`scripts/screenshot-ui.mjs` 可重复执行）
 
-## P2 Admin 后台（进行中 → 计划 11/08–11/12）
+## P2 Admin 后台（✅ 2026-11-02 完成，E2E 9/9 通过）
+
+- [x] 路由组 `(auth)/(panel)`：登录页 + 会话守卫布局（noindex + robots disallow）
+- [x] 数据层 Drizzle + @libsql 双模式：本地 `file:data/site.db` / Turso（DATABASE_URL 切换，同一 schema 同一代码）；首次启动自动建表 + 从 seed.json 灌种子（幂等）
+- [x] 鉴权：iron-session（7 天 cookie）+ bcrypt 密码哈希存库；ADMIN_PASSWORD 仅作初始密码；默认密码警告横幅
+- [x] 仪表盘：产品/询盘/新闻/案例计数 + 新询盘数 + 最近 8 条询盘 + 快捷入口
+- [x] 产品管理：列表/上下架/删除 + 编辑页（ProductForm 客户端组件：规格行/FAQ 行 ArrayField 编辑器、描述空行分段、特点一行一条）
+- [x] 分类管理 + Banner 管理（服务端表单 ?edit= 预填模式）
+- [x] 新闻/案例管理（列表 + 编辑页，关联产品 slug）
+- [x] 询盘管理：状态筛选（新/处理中/已回复/已成交/垃圾）/ 行内状态流转 / 删除 / **CSV 导出**（UTF-8 BOM，Excel 友好）
+- [x] **API Key 签发/吊销**（sk-site- 前缀，明文仅创建时显示一次——P3 同步用）
+- [x] 页面区块：首页信任数据/企业优势 + 关于我们（简介/工厂实力/文化）+ 导航菜单（含产品下拉开关）
+- [x] 站点设置：公司信息/联系方式/社交链接/SEO 默认值 + 修改密码
+- [x] 前台全面 DB 驱动：content.ts 异步化，Admin 保存 → revalidatePath 全站刷新（ISR，前台静态性能不变）
+- [x] E2E 冒烟 `scripts/e2e-admin.mjs`：守卫/登录/建产品/前台可见/询盘落库/后台可见/Key 签发 9 项全过（附 admin 截图 2 张）
+
+## P3 询盘互通（计划 11/12–11/14）
 
 - [ ] `/admin` 路由组（noindex）+ iron-session 鉴权（ADMIN_PASSWORD）
 - [ ] 数据层 Drizzle ORM 双模式（本地 SQLite / Turso，同 schema 同代码）

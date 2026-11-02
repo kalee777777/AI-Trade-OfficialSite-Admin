@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 };
 
 /** 产品列表页：按分类分组展示，与导航下拉、询盘表单同源。 */
-export default function ProductsPage() {
-  const grouped = getProductsByCategory().filter((g) => g.products.length > 0);
+export default async function ProductsPage() {
+  const grouped = (await getProductsByCategory()).filter((g) => g.products.length > 0);
 
   return (
     <div className="container-x py-10">

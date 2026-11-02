@@ -10,10 +10,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/contact' },
 };
 
-export default function ContactPage() {
-  const settings = getSettings();
-  const categories = getCategories();
-  const productOptions = getProducts().map((p) => ({
+export default async function ContactPage() {
+  const [settings, categories, products] = await Promise.all([
+    getSettings(), getCategories(), getProducts(),
+  ]);
+  const productOptions = products.map((p) => ({
     name: p.name,
     slug: p.slug,
     category: categories.find((c) => c.slug === p.categorySlug)?.name ?? 'Products',

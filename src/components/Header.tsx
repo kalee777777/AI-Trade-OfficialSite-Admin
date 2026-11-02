@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 import MobileNav from './MobileNav';
 
 /** 顶部导航（服务端组件）：桌面端「产品中心」下拉悬停展开（分类 → 产品，数据驱动自动更新）。 */
-export default function Header() {
-  const settings = getSettings();
-  const nav = getNavigation();
-  const grouped = getProductsByCategory().filter((g) => g.products.length > 0);
+export default async function Header() {
+  const settings = await getSettings();
+  const nav = await getNavigation();
+  const grouped = (await getProductsByCategory()).filter((g) => g.products.length > 0);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur">
@@ -80,6 +80,7 @@ export default function Header() {
 
         {/* 移动端菜单（客户端组件，Sheet 侧边抽屉） */}
         <MobileNav
+          nav={nav.filter((n) => !n.dropdown)}
           grouped={grouped.map(({ category, products }) => ({
             name: category.name,
             products: products.map((p) => ({ name: p.name, href: `/products/${p.slug}` })),

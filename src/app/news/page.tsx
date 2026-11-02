@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   alternates: { canonical: '/news' },
 };
 
-export default function NewsPage() {
-  const news = getNews();
+export default async function NewsPage() {
+  const news = await getNews();
 
   return (
     <div className="container-x py-10">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'News' }]} />
-      <h1 className="text-3xl font-extrabold text-ink">News & Insights</h1>
+      <h1 className="text-3xl font-extrabold text-ink">News &amp; Insights</h1>
 
       <div className="mt-10 space-y-6">
         {news.map((n) => (

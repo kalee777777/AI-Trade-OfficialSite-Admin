@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { getSettings, getNavigation, getProductsByCategory } from '@/lib/content';
 
-/** 通用页脚：公司简介 + 快捷导航 + 产品导航 + 联系方式。P2 起 Admin 可视化修改全部内容。 */
-export default function Footer() {
-  const settings = getSettings();
-  const nav = getNavigation();
-  const grouped = getProductsByCategory();
+/** 通用页脚：公司简介 + 快捷导航 + 产品导航 + 联系方式。Admin 后台可视化修改全部内容。 */
+export default async function Footer() {
+  const settings = await getSettings();
+  const nav = await getNavigation();
+  const grouped = await getProductsByCategory();
   const year = new Date().getFullYear();
 
   return (
@@ -43,14 +43,13 @@ export default function Footer() {
         <div>
           <p className="mb-3 text-sm font-bold uppercase tracking-wider text-white/90">Products</p>
           <ul className="space-y-2 text-sm text-white/70">
-            {getProductsByCategory().length > 0 &&
-              grouped.flatMap(({ products }) =>
-                products.map((p) => (
-                  <li key={p.slug}>
-                    <Link href={`/products/${p.slug}`} className="hover:text-white">{p.name}</Link>
-                  </li>
-                ),
-              ))}
+            {grouped.flatMap(({ products }) =>
+              products.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/products/${p.slug}`} className="hover:text-white">{p.name}</Link>
+                </li>
+              )),
+            )}
           </ul>
         </div>
 

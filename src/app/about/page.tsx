@@ -4,18 +4,18 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { Button } from '@/components/ui/button';
 import { getAbout, getSettings } from '@/lib/content';
 
-export function metadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const about = await getAbout();
   return {
     title: 'About Us',
-    description: getAbout().intro[0]?.replace(/^\[PLACEHOLDER\]\s*/, '') || 'Company introduction.',
+    description: about.intro[0]?.replace(/^\[PLACEHOLDER\]\s*/, '') || 'Company introduction.',
     alternates: { canonical: '/about' },
   };
 }
 
 /** 关于我们：企业简介 / 工厂实力 / 企业文化。 */
-export default function AboutPage() {
-  const about = getAbout();
-  const settings = getSettings();
+export default async function AboutPage() {
+  const [about, settings] = await Promise.all([getAbout(), getSettings()]);
 
   return (
     <div className="container-x py-10">
@@ -27,7 +27,7 @@ export default function AboutPage() {
           {about.intro.map((para, i) => (
             <p key={i} className="mt-4 text-sm leading-relaxed text-muted-foreground">{para}</p>
           ))}
-          <div className="mt-6 card bg-brand-tint p-6">
+          <div className="mt-6 card bg-accent p-6">
             <h2 className="text-base font-bold text-ink">Our Culture</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{about.culture}</p>
           </div>

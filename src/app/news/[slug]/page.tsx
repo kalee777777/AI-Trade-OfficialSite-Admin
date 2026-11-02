@@ -4,12 +4,12 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import { getNews, getNewsBySlug, getSettings, getSiteUrl } from '@/lib/content';
 
-export function generateStaticParams() {
-  return getNews().map((n) => ({ slug: n.slug }));
+export async function generateStaticParams() {
+  return (await getNews()).map((n) => ({ slug: n.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const n = getNewsBySlug(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const n = await getNewsBySlug(params.slug);
   if (!n) return {};
   return {
     title: n.title,
@@ -19,12 +19,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-export default function NewsDetailPage({ params }: { params: { slug: string } }) {
-  const n = getNewsBySlug(params.slug);
+export default async function NewsDetailPage({ params }: { params: { slug: string } }) {
+  const n = await getNewsBySlug(params.slug);
   if (!n) notFound();
 
-  const settings = getSettings();
-  const base = getSiteUrl();
+  const [settings, base] = await Promise.all([getSettings(), getSiteUrl()]);
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',

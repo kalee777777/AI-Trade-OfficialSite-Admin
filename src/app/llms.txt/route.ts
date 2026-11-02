@@ -3,14 +3,14 @@ import { getSettings, getProducts, getCases, getNews, getSiteUrl } from '@/lib/c
 /**
  * llms.txt —— GEO（生成式引擎优化）入口文件。
  * AI 搜索/助手会读取站点根目录的 llms.txt 来理解网站全貌；
- * 内容从 seed 数据自动生成，Admin 改内容后自动同步。
+ * 内容从数据库自动生成，Admin 改内容后自动同步。
  */
-export function GET() {
-  const settings = getSettings();
-  const base = getSiteUrl();
-  const products = getProducts();
-  const cases = getCases();
-  const news = getNews().slice(0, 5);
+export async function GET() {
+  const [settings, products, cases, news] = await Promise.all([
+    getSettings(), getProducts(), getCases(), getNews(),
+  ]);
+  const base = await getSiteUrl();
+  const latestNews = news.slice(0, 5);
 
   const lines: string[] = [
     `# ${settings.companyName}`,
@@ -37,7 +37,7 @@ export function GET() {
 
     '## Latest News',
     '',
-    ...news.flatMap((n) => [
+    ...latestNews.flatMap((n) => [
       `- [${n.title}](${base}/news/${n.slug}): ${n.summary}`,
       '',
     ]),

@@ -1,8 +1,8 @@
 import { getSettings } from '@/lib/content';
 
 /** 全站浮动 WhatsApp 按钮（号码来自站点设置，Admin 可改）。 */
-export default function WhatsAppFloat() {
-  const settings = getSettings();
+export default async function WhatsAppFloat() {
+  const settings = await getSettings();
   const number = settings.whatsapp.replace(/[^\d]/g, '');
 
   return (

@@ -2,21 +2,20 @@ import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
 import { Button } from '@/components/ui/button';
 import {
-  getBanners, getTrustStats, getAdvantages, getProducts,
+  getBanners, getHomeBlocks, getProducts,
   getCases, getNews, getSettings,
 } from '@/lib/content';
 
 /** 首页：Banner → 信任数据条 → 产品区 → 企业优势 → 案例 → 新闻 → CTA。 */
-export default function HomePage() {
-  const banners = getBanners();
-  const stats = getTrustStats();
-  const products = getProducts().slice(0, 4);
-  const advantages = getAdvantages();
-  const cases = getCases().slice(0, 2);
-  const news = getNews().slice(0, 3);
-  const settings = getSettings();
+export default async function HomePage() {
+  const [banners, homeBlocks, products, cases, news, settings] = await Promise.all([
+    getBanners(), getHomeBlocks(), getProducts(), getCases(), getNews(), getSettings(),
+  ]);
+  const stats = homeBlocks.trustStats;
+  const advantages = homeBlocks.advantages;
   const hero = banners[0];
   const secondary = banners[1];
+  if (!hero) return null;
 
   return (
     <>
@@ -31,7 +30,7 @@ export default function HomePage() {
               {hero.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button asChild size="lg"><Link href={hero.ctaHref}>{hero.ctaText}</Link></Button>
+              <Button asChild size="lg"><Link href={hero.ctaHref || '/inquiry'}>{hero.ctaText || 'Get a Quote'}</Link></Button>
               <Button asChild size="lg" variant="secondary"><Link href="/products">Browse Products</Link></Button>
             </div>
           </div>
@@ -48,16 +47,18 @@ export default function HomePage() {
       </section>
 
       {/* 信任数据条 */}
-      <section className="border-b border-line bg-brand-tint">
-        <div className="container-x grid grid-cols-2 gap-6 py-8 md:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-3xl font-extrabold text-brand">{stat.value}</p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {stats.length > 0 && (
+        <section className="border-b border-line bg-brand-tint">
+          <div className="container-x grid grid-cols-2 gap-6 py-8 md:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-3xl font-extrabold text-brand">{stat.value}</p>
+                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* 核心产品 */}
       <section className="container-x py-16">
@@ -69,7 +70,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
+          {products.slice(0, 4).map((p) => (
             <ProductCard key={p.slug} product={p} />
           ))}
         </div>
@@ -79,25 +80,27 @@ export default function HomePage() {
       </section>
 
       {/* 企业优势 */}
-      <section className="bg-brand-tint py-16">
-        <div className="container-x">
-          <div className="mb-8 text-center">
-            <p className="section-eyebrow">Why Choose Us</p>
-            <h2 className="section-title">Our Advantages</h2>
+      {advantages.length > 0 && (
+        <section className="bg-brand-tint py-16">
+          <div className="container-x">
+            <div className="mb-8 text-center">
+              <p className="section-eyebrow">Why Choose Us</p>
+              <h2 className="section-title">Our Advantages</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {advantages.map((adv, i) => (
+                <div key={adv.title} className="card p-6">
+                  <p className="flex h-10 w-10 items-center justify-center rounded-md bg-brand text-sm font-bold text-white">
+                    {String(i + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-4 text-base font-bold text-ink">{adv.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{adv.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {advantages.map((adv, i) => (
-              <div key={adv.title} className="card p-6">
-                <p className="flex h-10 w-10 items-center justify-center rounded-md bg-brand text-sm font-bold text-white">
-                  {String(i + 1).padStart(2, '0')}
-                </p>
-                <h3 className="mt-4 text-base font-bold text-ink">{adv.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{adv.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* 第二 Banner（工厂实力） */}
       {secondary && (
@@ -113,7 +116,7 @@ export default function HomePage() {
             <div className="p-8 md:pr-12">
               <h2 className="text-2xl font-bold text-ink">{secondary.title}</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{secondary.subtitle}</p>
-              <Button asChild variant="outline" className="mt-6"><Link href={secondary.ctaHref}>{secondary.ctaText}</Link></Button>
+              <Button asChild variant="outline" className="mt-6"><Link href={secondary.ctaHref || '/about'}>{secondary.ctaText || 'Learn More'}</Link></Button>
             </div>
           </div>
         </section>
@@ -126,9 +129,9 @@ export default function HomePage() {
           <h2 className="section-title">What We Delivered</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
-          {cases.map((c) => (
+          {cases.slice(0, 2).map((c) => (
             <Link key={c.slug} href={`/cases/${c.slug}`} className="card group overflow-hidden hover:shadow-lg">
-              <div className="aspect-[16/8] overflow-hidden bg-brand-tint">
+              <div className="aspect-[16/8] overflow-hidden bg-accent">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={c.image} alt={c.title}
@@ -153,7 +156,7 @@ export default function HomePage() {
           <h2 className="section-title">Latest News</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-3">
-          {news.map((n) => (
+          {news.slice(0, 3).map((n) => (
             <Link key={n.slug} href={`/news/${n.slug}`} className="card group p-6 hover:shadow-lg">
               <p className="text-xs text-muted-foreground">{n.date}</p>
               <h3 className="mt-1 text-base font-bold text-ink group-hover:text-brand">{n.title}</h3>
@@ -171,7 +174,7 @@ export default function HomePage() {
             Send us your requirements — specifications, quantity and destination port — and get a
             factory-direct quotation within 24 hours.
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="mt-8">
             <Link href="/inquiry">Get a Free Quotation</Link>
           </Button>
         </div>
