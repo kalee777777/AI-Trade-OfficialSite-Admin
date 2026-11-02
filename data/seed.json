@@ -1,0 +1,310 @@
+{
+  "settings": {
+    "companyName": "Your Company Co., Ltd.",
+    "tagline": "Reliable Manufacturer & Exporter",
+    "domain": "https://example.com",
+    "description": "[PLACEHOLDER] Replace with a 150-160 character company description containing your main products, advantages and target markets. This text is used for homepage SEO meta description.",
+    "seoKeywords": ["product a manufacturer", "product b supplier", "product c factory", "custom OEM exporter"],
+    "logoText": "YOUR LOGO",
+    "email": "sales@yourcompany.com",
+    "phone": "+86 000 0000 0000",
+    "whatsapp": "+8600000000000",
+    "address": "[PLACEHOLDER] No. 00 Industrial Zone, City, Province, China",
+    "socials": [
+      { "platform": "LinkedIn", "url": "https://www.linkedin.com/company/yourcompany" },
+      { "platform": "Facebook", "url": "https://www.facebook.com/yourcompany" },
+      { "platform": "YouTube", "url": "https://www.youtube.com/@yourcompany" }
+    ],
+    "footerNote": "[PLACEHOLDER] Slogan or short line in the footer."
+  },
+  "navigation": [
+    { "label": "Home", "href": "/" },
+    { "label": "About Us", "href": "/about" },
+    { "label": "Products", "href": "/products", "dropdown": true },
+    { "label": "Case Studies", "href": "/cases" },
+    { "label": "News", "href": "/news" },
+    { "label": "Inquiry", "href": "/inquiry" },
+    { "label": "Contact Us", "href": "/contact" }
+  ],
+  "categories": [
+    {
+      "id": "cat-a",
+      "slug": "category-a",
+      "name": "Category A",
+      "description": "[PLACEHOLDER] One sentence describing what Category A covers and who it is for."
+    },
+    {
+      "id": "cat-b",
+      "slug": "category-b",
+      "name": "Category B",
+      "description": "[PLACEHOLDER] One sentence describing what Category B covers and who it is for."
+    }
+  ],
+  "products": [
+    {
+      "id": "prd-a",
+      "slug": "product-a",
+      "name": "Product A",
+      "categorySlug": "category-a",
+      "tagline": "[PLACEHOLDER] One-line selling point of Product A, e.g. High-strength X for Y applications",
+      "description": [
+        "[PLACEHOLDER] Paragraph 1: what Product A is, what problems it solves, and which industries use it.",
+        "[PLACEHOLDER] Paragraph 2: materials, workmanship, certifications and quality control highlights."
+      ],
+      "image": "/placeholders/product-a.svg",
+      "features": [
+        "[PLACEHOLDER] Feature 1 — e.g. ISO 9001 certified production line",
+        "[PLACEHOLDER] Feature 2 — e.g. Custom sizes and OEM/ODM available",
+        "[PLACEHOLDER] Feature 3 — e.g. 15 years export experience to 30+ countries",
+        "[PLACEHOLDER] Feature 4 — e.g. Strict pre-shipment inspection"
+      ],
+      "specs": [
+        { "param": "Material", "value": "[PLACEHOLDER] e.g. Q235B steel" },
+        { "param": "Size", "value": "[PLACEHOLDER] e.g. 1.5m × 2.0m, customizable" },
+        { "param": "MOQ", "value": "[PLACEHOLDER] e.g. 200 units" },
+        { "param": "Lead Time", "value": "[PLACEHOLDER] e.g. 15–25 days after deposit" },
+        { "param": "Packing", "value": "[PLACEHOLDER] e.g. Export standard pallet" }
+      ],
+      "quotableLine": "Product A is a [PLACEHOLDER category] made of [material], available in [sizes], with MOQ [quantity] and [lead time] lead time, manufactured and exported by Your Company Co., Ltd.",
+      "faq": [
+        {
+          "q": "What is your MOQ for Product A?",
+          "a": "[PLACEHOLDER] Our MOQ for Product A is [X] units; smaller trial orders are negotiable for first cooperation."
+        },
+        {
+          "q": "Can you provide OEM or custom specifications?",
+          "a": "[PLACEHOLDER] Yes. We manufacture Product A to drawings or samples, with [X] years of OEM experience."
+        },
+        {
+          "q": "What certifications do you have?",
+          "a": "[PLACEHOLDER] Our factory is ISO 9001 certified and Product A meets [standard] requirements."
+        }
+      ],
+      "published": true
+    },
+    {
+      "id": "prd-b",
+      "slug": "product-b",
+      "name": "Product B",
+      "categorySlug": "category-a",
+      "tagline": "[PLACEHOLDER] One-line selling point of Product B",
+      "description": [
+        "[PLACEHOLDER] Paragraph 1: what Product B is and where it is used.",
+        "[PLACEHOLDER] Paragraph 2: key advantages and quality control."
+      ],
+      "image": "/placeholders/product-b.svg",
+      "features": [
+        "[PLACEHOLDER] Feature 1",
+        "[PLACEHOLDER] Feature 2",
+        "[PLACEHOLDER] Feature 3"
+      ],
+      "specs": [
+        { "param": "Material", "value": "[PLACEHOLDER]" },
+        { "param": "Size", "value": "[PLACEHOLDER]" },
+        { "param": "MOQ", "value": "[PLACEHOLDER]" },
+        { "param": "Lead Time", "value": "[PLACEHOLDER]" },
+        { "param": "Packing", "value": "[PLACEHOLDER]" }
+      ],
+      "quotableLine": "Product B is a [PLACEHOLDER category] made of [material], available in [sizes], with MOQ [quantity] and [lead time] lead time, manufactured and exported by Your Company Co., Ltd.",
+      "faq": [
+        {
+          "q": "What is your MOQ for Product B?",
+          "a": "[PLACEHOLDER] Our MOQ for Product B is [X] units."
+        },
+        {
+          "q": "Do you offer free samples?",
+          "a": "[PLACEHOLDER] Samples of Product B are free; freight is collected."
+        }
+      ],
+      "published": true
+    },
+    {
+      "id": "prd-c",
+      "slug": "product-c",
+      "name": "Product C",
+      "categorySlug": "category-b",
+      "tagline": "[PLACEHOLDER] One-line selling point of Product C",
+      "description": [
+        "[PLACEHOLDER] Paragraph 1: what Product C is and where it is used.",
+        "[PLACEHOLDER] Paragraph 2: key advantages and quality control."
+      ],
+      "image": "/placeholders/product-c.svg",
+      "features": [
+        "[PLACEHOLDER] Feature 1",
+        "[PLACEHOLDER] Feature 2",
+        "[PLACEHOLDER] Feature 3"
+      ],
+      "specs": [
+        { "param": "Material", "value": "[PLACEHOLDER]" },
+        { "param": "Size", "value": "[PLACEHOLDER]" },
+        { "param": "MOQ", "value": "[PLACEHOLDER]" },
+        { "param": "Lead Time", "value": "[PLACEHOLDER]" },
+        { "param": "Packing", "value": "[PLACEHOLDER]" }
+      ],
+      "quotableLine": "Product C is a [PLACEHOLDER category] made of [material], available in [sizes], with MOQ [quantity] and [lead time] lead time, manufactured and exported by Your Company Co., Ltd.",
+      "faq": [
+        {
+          "q": "What is your MOQ for Product C?",
+          "a": "[PLACEHOLDER] Our MOQ for Product C is [X] units."
+        },
+        {
+          "q": "What is the delivery time?",
+          "a": "[PLACEHOLDER] Product C ships in [X] days after receiving the deposit."
+        }
+      ],
+      "published": true
+    },
+    {
+      "id": "prd-d",
+      "slug": "product-d",
+      "name": "Product D",
+      "categorySlug": "category-b",
+      "tagline": "[PLACEHOLDER] One-line selling point of Product D",
+      "description": [
+        "[PLACEHOLDER] Paragraph 1: what Product D is and where it is used.",
+        "[PLACEHOLDER] Paragraph 2: key advantages and quality control."
+      ],
+      "image": "/placeholders/product-d.svg",
+      "features": [
+        "[PLACEHOLDER] Feature 1",
+        "[PLACEHOLDER] Feature 2",
+        "[PLACEHOLDER] Feature 3"
+      ],
+      "specs": [
+        { "param": "Material", "value": "[PLACEHOLDER]" },
+        { "param": "Size", "value": "[PLACEHOLDER]" },
+        { "param": "MOQ", "value": "[PLACEHOLDER]" },
+        { "param": "Lead Time", "value": "[PLACEHOLDER]" },
+        { "param": "Packing", "value": "[PLACEHOLDER]" }
+      ],
+      "quotableLine": "Product D is a [PLACEHOLDER category] made of [material], available in [sizes], with MOQ [quantity] and [lead time] lead time, manufactured and exported by Your Company Co., Ltd.",
+      "faq": [
+        {
+          "q": "What is your MOQ for Product D?",
+          "a": "[PLACEHOLDER] Our MOQ for Product D is [X] units."
+        },
+        {
+          "q": "Can you customize Product D?",
+          "a": "[PLACEHOLDER] Yes, Product D supports full customization based on drawings or samples."
+        }
+      ],
+      "published": true
+    }
+  ],
+  "banners": [
+    {
+      "id": "bn-1",
+      "title": "[PLACEHOLDER] Main Headline — What Your Company Manufactures",
+      "subtitle": "[PLACEHOLDER] Supporting sentence: industries served, key advantages, or a big claim with numbers.",
+      "ctaText": "Get a Quote",
+      "ctaHref": "/inquiry",
+      "image": "/placeholders/banner-1.svg"
+    },
+    {
+      "id": "bn-2",
+      "title": "[PLACEHOLDER] Second Banner — Factory Strength / OEM Service",
+      "subtitle": "[PLACEHOLDER] Supporting sentence for the second banner.",
+      "ctaText": "Learn More",
+      "ctaHref": "/about",
+      "image": "/placeholders/banner-2.svg"
+    }
+  ],
+  "trustStats": [
+    { "value": "15+", "label": "[PLACEHOLDER] Years of Experience" },
+    { "value": "30+", "label": "[PLACEHOLDER] Export Countries" },
+    { "value": "500+", "label": "[PLACEHOLDER] Served Customers" },
+    { "value": "ISO", "label": "[PLACEHOLDER] 9001 Certified" }
+  ],
+  "advantages": [
+    {
+      "title": "Factory Direct Pricing",
+      "description": "[PLACEHOLDER] Explain that you are a manufacturer, no middlemen, and how buyers save cost."
+    },
+    {
+      "title": "Strict Quality Control",
+      "description": "[PLACEHOLDER] Describe inspection process, from raw material to pre-shipment."
+    },
+    {
+      "title": "Fast Delivery",
+      "description": "[PLACEHOLDER] Production capacity and typical lead time with numbers."
+    },
+    {
+      "title": "OEM / ODM Support",
+      "description": "[PLACEHOLDER] Customization capability: drawings, samples, private label."
+    }
+  ],
+  "cases": [
+    {
+      "slug": "case-study-1",
+      "title": "[PLACEHOLDER] Case Study: 40HQ Shipment of Product A to Germany",
+      "summary": "[PLACEHOLDER] One-paragraph summary: customer need, solution, and result with numbers.",
+      "content": [
+        "[PLACEHOLDER] Background: who the customer is and what they needed.",
+        "[PLACEHOLDER] Solution: what you supplied, key specs, and how you solved their pain point.",
+        "[PLACEHOLDER] Result: quantities shipped, repeat orders, or feedback quote."
+      ],
+      "date": "2026-01-15",
+      "image": "/placeholders/generic-thumb.svg",
+      "products": ["product-a"]
+    },
+    {
+      "slug": "case-study-2",
+      "title": "[PLACEHOLDER] Case Study: Custom OEM Project for a US Distributor",
+      "summary": "[PLACEHOLDER] One-paragraph summary of the OEM project.",
+      "content": [
+        "[PLACEHOLDER] Background.",
+        "[PLACEHOLDER] Solution.",
+        "[PLACEHOLDER] Result."
+      ],
+      "date": "2026-03-20",
+      "image": "/placeholders/generic-thumb.svg",
+      "products": ["product-c"]
+    }
+  ],
+  "news": [
+    {
+      "slug": "news-1",
+      "title": "[PLACEHOLDER] We Exhibited at the Canton Fair 2026",
+      "summary": "[PLACEHOLDER] One-sentence summary of the exhibition news.",
+      "content": [
+        "[PLACEHOLDER] Paragraph about the exhibition: booth number, products shown, visitor feedback.",
+        "[PLACEHOLDER] Paragraph about follow-up cooperation."
+      ],
+      "date": "2026-05-10"
+    },
+    {
+      "slug": "news-2",
+      "title": "[PLACEHOLDER] New Production Line Put Into Operation",
+      "summary": "[PLACEHOLDER] One-sentence summary of the capacity expansion.",
+      "content": [
+        "[PLACEHOLDER] Paragraph about the new line: capacity increase, delivery improvement.",
+        "[PLACEHOLDER] Paragraph about what it means for customers."
+      ],
+      "date": "2026-07-02"
+    },
+    {
+      "slug": "news-3",
+      "title": "[PLACEHOLDER] How to Choose the Right Product A: A Buyer's Guide",
+      "summary": "[PLACEHOLDER] One-sentence summary of the buying guide.",
+      "content": [
+        "[PLACEHOLDER] Paragraph 1 of the guide.",
+        "[PLACEHOLDER] Paragraph 2 of the guide.",
+        "[PLACEHOLDER] Paragraph 3 of the guide."
+      ],
+      "date": "2026-09-18"
+    }
+  ],
+  "about": {
+    "intro": [
+      "[PLACEHOLDER] Paragraph 1: who you are, when founded, what you manufacture.",
+      "[PLACEHOLDER] Paragraph 2: scale, capacity, markets served."
+    ],
+    "factory": [
+      { "title": "Production Capacity", "text": "[PLACEHOLDER] Machines, lines, monthly output." },
+      { "title": "Quality System", "text": "[PLACEHOLDER] Certifications and inspection process." },
+      { "title": "R&D Team", "text": "[PLACEHOLDER] Engineers, patents, OEM experience." }
+    ],
+    "culture": "[PLACEHOLDER] One paragraph about company values and long-term partnership philosophy.",
+    "image": "/placeholders/about-factory.svg"
+  }
+}

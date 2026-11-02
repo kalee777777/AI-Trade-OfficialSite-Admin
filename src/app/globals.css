@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Design Tokens —— 品牌换肤只改这一块
+   学员/AI 换品牌色：改下面 4 个 --brand-* 变量，全站（按钮/链接/
+   表头/CTA/悬停态）自动生效，无需碰任何组件代码。
+   ============================================================ */
+:root {
+  --brand: #1d4ed8;        /* 主品牌色：按钮、链接、强调 */
+  --brand-dark: #1e3a8a;   /* 深一档：悬停、页脚深底 */
+  --brand-light: #3b82f6;  /* 亮一档：图标、次级强调 */
+  --brand-tint: #eff4fe;   /* 浅底：区块背景、标签底 */
+
+  --ink: #111827;          /* 正文墨色 */
+  --paper: #ffffff;        /* 页面底色 */
+  --muted: #6b7280;        /* 次级文字 */
+  --line: #e5e7eb;         /* 分隔线/边框 */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper text-ink antialiased;
+  }
+}
+
+@layer components {
+  /* 页面容器 */
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  /* 主按钮 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark;
+  }
+  /* 次级按钮 */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand px-6 py-3 text-sm font-semibold text-brand transition-colors hover:bg-brand-tint;
+  }
+  /* 区块小标题（eyebrow） */
+  .section-eyebrow {
+    @apply mb-2 text-xs font-bold uppercase tracking-widest text-brand-light;
+  }
+  /* 区块大标题 */
+  .section-title {
+    @apply text-2xl font-bold text-ink sm:text-3xl;
+  }
+  /* 通用卡片 */
+  .card {
+    @apply rounded-lg border border-line bg-paper;
+  }
+  /* 表单输入 */
+  .field {
+    @apply w-full rounded-md border border-line bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand-light;
+  }
+  /* 表格（规格表等） */
+  .table-spec {
+    @apply w-full border-collapse text-sm;
+  }
+  .table-spec th {
+    @apply border border-line bg-brand-tint px-4 py-2 text-left font-semibold text-ink;
+  }
+  .table-spec td {
+    @apply border border-line px-4 py-2 text-muted;
+  }
+}
