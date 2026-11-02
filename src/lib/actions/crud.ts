@@ -278,13 +278,19 @@ export async function revokeApiKeyAction(formData: FormData): Promise<void> {
 }
 
 export async function listApiKeysForAdmin(): Promise<
-  { key: string; label: string; createdAt: string; revoked: boolean }[]
+  { key: string; label: string; createdAt: string; lastUsedAt: string | null; revoked: boolean }[]
 > {
   const session = await getSession();
   if (!session.isAdmin) return [];
   await ensureDb();
   const rows = await db.select().from(apiKeys).orderBy(desc(apiKeys.createdAt));
-  return rows.map((r) => ({ key: r.key, label: r.label, createdAt: r.createdAt, revoked: r.revoked }));
+  return rows.map((r) => ({
+    key: r.key,
+    label: r.label,
+    createdAt: r.createdAt,
+    lastUsedAt: r.lastUsedAt,
+    revoked: r.revoked,
+  }));
 }
 
 /* ============ 页面区块（首页数据/优势 + 关于我们 + 导航） ============ */

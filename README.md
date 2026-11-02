@@ -58,7 +58,7 @@ npm run dev        # 打开 http://localhost:3000
 - [x] **P1 前台**：7 类页面 + Product A–D 占位 + SEO/GEO 全套 + 询盘 API
 - [x] **P1.5 UI 组件库**：shadcn/ui 16 组件内置 + 页面换装 + `/showcase` 演示页
 - [x] **P2 Admin 后台**：九大管理页 + 数据库双模式（本地 SQLite / Turso）+ iron-session 鉴权 + CSV 导出 + API Key（E2E 9/9 通过）
-- [ ] **P3 询盘互通**：`/api/sync/inquiries`，对接 AI-Trade-Workbench 自动同步（Key 签发已就绪）
+- [x] **P3 询盘互通**：`GET /api/sync/inquiries`（Key 鉴权/增量分页/限流），E2E 8/8——AI-Trade-Workbench 可直接对接
 - [ ] **P6 完整文档**：小白部署图文教程 / AI 提示词库 / FAQ 手册
 
 ## 🤖 用 AI 改站（不用会写代码）

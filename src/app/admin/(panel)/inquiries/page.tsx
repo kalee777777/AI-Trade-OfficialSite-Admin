@@ -152,7 +152,9 @@ export default async function AdminInquiriesPage({
                 <div className="min-w-0">
                   <p className="font-mono text-xs text-ink">{k.key.slice(0, 16)}…{k.key.slice(-4)}</p>
                   <p className="text-xs text-muted-foreground">
-                    {k.label} · 创建于 {k.createdAt.slice(0, 10)} {k.revoked ? '· 已吊销' : ''}
+                    {k.label} · 创建于 {k.createdAt.slice(0, 10)}
+                    {k.lastUsedAt ? ` · 最近同步 ${k.lastUsedAt.slice(0, 16).replace('T', ' ')}` : ' · 未使用'}
+                    {k.revoked ? ' · 已吊销' : ''}
                   </p>
                 </div>
                 {!k.revoked && (

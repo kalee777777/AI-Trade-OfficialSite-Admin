@@ -20,6 +20,13 @@
 - [x] 全局语义对齐：text-muted → text-muted-foreground（shadcn 约定，AI 生成代码零适配）
 - [x] 回归：build 22 页全静态、JSON-LD 4 块完好、询盘 API/蜜罐正常
 
+## P3 询盘互通（✅ 2026-11-02 完成，E2E 8/8 通过 · M2 达成）
+
+- [x] `GET /api/sync/inquiries`（契约 v1 全量实现）：X-Api-Key 鉴权 / since+cursor 增量分页 / limit 1–100 / 60 次每小时限流 / 成功访问回写 last_used_at
+- [x] Admin API Keys 增强：列表显示「最近同步」时间
+- [x] E2E `scripts/e2e-sync.mjs`：签发 Key→提交询盘→全量/增量/分页拉取→无 Key 401→吊销后 403，8 项全过
+- [ ] 工作台侧同步客户端（P4 在 AI-Trade-Workbench 实现对接，契约文档两仓同文）
+
 ## P1.6 组件演示页 + UI 提示词手册（✅ 2026-11-02，P5 首块提前交付）
 
 - [x] `/showcase` 演示页（noindex + robots disallow）：16 组件实况演示、每区附定制提示词、5 套主题预设一键试穿（ThemePresetSwitcher 直接写 <html> 行内变量，全站即时换肤）
