@@ -67,6 +67,17 @@ npm run dev        # 打开 http://localhost:3000
 
 **提示词手册**：[`prompts/ui-swap.md`](prompts/ui-swap.md) —— 换品牌色（改 4 个变量）、换圆角风格、Banner 改轮播、加暗色模式、新增任意 shadcn 组件、改坏了 git 一键还原，全部提示词写好待复制。配套更完整的场景提示词库（开发信/询盘回复等业务向）随课程提供。
 
+## 📚 文档导航
+
+| 文档 | 内容 |
+|---|---|
+| [部署教程 DEPLOY](docs/DEPLOY.md) | 本地 / Vercel+Turso / VPS 三路径，小白一步步照做 |
+| [常见问题 FAQ](docs/FAQ.md) | 安装慢、内容不持久、登录异常等 12 类报错排查 |
+| [架构与二开 EXTEND](docs/EXTEND.md) | 目录地图、数据流、加页面/加字段/改同步怎么做 |
+| [设计规范 DESIGN](docs/DESIGN.md) | 设计令牌换肤 + 16 个内置组件清单 |
+| [同步契约 CONTRACT](docs/CONTRACT-inquiry-sync.md) | 询盘同步 API v1（与工作台仓库同文） |
+| [录屏脚本 VIDEO-SCRIPT](docs/VIDEO-SCRIPT.md) | 5 分钟部署演示视频分镜（供录制） |
+
 ## 📄 License
 
 MIT — 可免费商用与二次开发。

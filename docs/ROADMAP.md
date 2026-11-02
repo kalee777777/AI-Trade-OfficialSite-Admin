@@ -20,6 +20,14 @@
 - [x] 全局语义对齐：text-muted → text-muted-foreground（shadcn 约定，AI 生成代码零适配）
 - [x] 回归：build 22 页全静态、JSON-LD 4 块完好、询盘 API/蜜罐正常
 
+## P6 文档物料（✅ 2026-11-02 完成）
+
+- [x] 小白部署教程 `docs/DEPLOY.md`：本地 / Vercel+Turso / VPS 三路径 + 上线检查清单 + 数据备份
+- [x] 常见报错 FAQ `docs/FAQ.md`：12 类症状-解法对照表
+- [x] 架构与二开指南 `docs/EXTEND.md`：目录地图 + 数据流 + 三大常见二开场景
+- [x] 部署演示视频分镜脚本 `docs/VIDEO-SCRIPT.md`（5 分钟，供录制）
+- [x] **泄密审计门禁**：`scripts/audit-opensource.mjs`（8 类规则扫描 git 全量跟踪文件，0 命中才通过）+ `.github/workflows/audit.yml` CI 强制（push/PR 跑审计 + 构建，红灯禁发）——本地双仓实测 0 命中
+
 ## P5 AI 提示词库（✅ 独立站向已随 P1.6 交付）
 
 - [x] `prompts/ui-swap.md`：换肤预设/任意品牌色/圆角风格/组件目录/高频场景（轮播/暗色/加组件/删演示页）/git 兜底/三军规 + `/showcase` 页每组件区附提示词（2026-11-02）
