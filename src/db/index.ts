@@ -47,6 +47,7 @@ export function ensureDb(): Promise<void> {
 /** Demo 站重置：清空全部业务表并按种子全量重灌（Product A–D 模板内容恢复）。 */
 export async function reseedDb(): Promise<void> {
   const c = getClient();
+  await prepareConnection(c);
   await createTables(c);
   for (const table of ['products', 'categories', 'banners', 'cases', 'news', 'inquiries', 'api_keys', 'settings']) {
     await c.execute(`DELETE FROM ${table}`);
@@ -56,10 +57,22 @@ export async function reseedDb(): Promise<void> {
 
 async function init(): Promise<void> {
   const c = getClient();
+  await prepareConnection(c);
   await createTables(c);
   const existing = await c.execute("SELECT key FROM settings WHERE key = 'site'");
   if (existing.rows.length === 0) {
     await seed(c);
+  }
+}
+
+/** 本地文件模式：WAL + busy_timeout，容忍多进程（如 next build 多 worker）并发初始化。 */
+async function prepareConnection(c: Client): Promise<void> {
+  if (!resolveUrl().startsWith('file:')) return;
+  try {
+    await c.execute('PRAGMA journal_mode = WAL');
+    await c.execute('PRAGMA busy_timeout = 10000');
+  } catch {
+    // 容错：PRAGMA 失败不阻塞启动
   }
 }
 
@@ -74,7 +87,8 @@ async function seed(c: Client): Promise<void> {
   const now = new Date().toISOString();
 
   await c.execute({
-    sql: 'INSERT INTO settings (key, value) VALUES (?, ?), (?, ?), (?, ?), (?, ?), (?, ?)',
+    // OR IGNORE：多进程冷启动并发灌种子时幂等
+    sql: 'INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?), (?, ?), (?, ?), (?, ?), (?, ?)',
     args: [
       'site', JSON.stringify(data.settings ?? {}),
       'navigation', JSON.stringify(data.navigation ?? []),
