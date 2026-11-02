@@ -20,6 +20,10 @@
 - [x] 全局语义对齐：text-muted → text-muted-foreground（shadcn 约定，AI 生成代码零适配）
 - [x] 回归：build 22 页全静态、JSON-LD 4 块完好、询盘 API/蜜罐正常
 
+## P5 AI 提示词库（✅ 独立站向已随 P1.6 交付）
+
+- [x] `prompts/ui-swap.md`：换肤预设/任意品牌色/圆角风格/组件目录/高频场景（轮播/暗色/加组件/删演示页）/git 兜底/三军规 + `/showcase` 页每组件区附提示词（2026-11-02）
+
 ## P3 询盘互通（✅ 2026-11-02 完成，E2E 8/8 通过 · M2 达成）
 
 - [x] `GET /api/sync/inquiries`（契约 v1 全量实现）：X-Api-Key 鉴权 / since+cursor 增量分页 / limit 1–100 / 60 次每小时限流 / 成功访问回写 last_used_at
