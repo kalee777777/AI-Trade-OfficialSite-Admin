@@ -1,0 +1,18 @@
+name: demo-reset
+
+# Demo 站每日重置：清空演示数据并重灌模板内容（Product A–D）。
+# 需在仓库 Settings → Secrets 配置：DEMO_URL（演示站地址）、DEMO_RESET_TOKEN（与站点同名的 DEMO_RESET_TOKEN 环境变量一致）。
+on:
+  schedule:
+    - cron: '0 1 * * *' # UTC 01:00 = 北京 09:00，开课前重置完毕
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call demo reset endpoint
+        run: |
+          code=$(curl -s -o /tmp/reset.json -w "%{http_code}" -X POST "${{ secrets.DEMO_URL }}/api/demo/reset" -H "x-demo-token: ${{ secrets.DEMO_RESET_TOKEN }}")
+          cat /tmp/reset.json
+          test "$code" = "200"

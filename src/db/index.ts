@@ -44,33 +44,49 @@ export function ensureDb(): Promise<void> {
   return ready;
 }
 
+/** Demo 站重置：清空全部业务表并按种子全量重灌（Product A–D 模板内容恢复）。 */
+export async function reseedDb(): Promise<void> {
+  const c = getClient();
+  await createTables(c);
+  for (const table of ['products', 'categories', 'banners', 'cases', 'news', 'inquiries', 'api_keys', 'settings']) {
+    await c.execute(`DELETE FROM ${table}`);
+  }
+  await seed(c);
+}
+
 async function init(): Promise<void> {
   const c = getClient();
+  await createTables(c);
+  const existing = await c.execute("SELECT key FROM settings WHERE key = 'site'");
+  if (existing.rows.length === 0) {
+    await seed(c);
+  }
+}
+
+async function createTables(c: Client): Promise<void> {
   for (const stmt of DDL_STATEMENTS) {
     await c.execute(stmt);
   }
+}
 
-  // 已初始化过（settings 里有 site 行）则跳过种子
-  const existing = await c.execute("SELECT key FROM settings WHERE key = 'site'");
-  if (existing.rows.length > 0) return;
-
-  const seed = seedJson as Record<string, unknown>;
+async function seed(c: Client): Promise<void> {
+  const data = seedJson as Record<string, unknown>;
   const now = new Date().toISOString();
 
   await c.execute({
     sql: 'INSERT INTO settings (key, value) VALUES (?, ?), (?, ?), (?, ?), (?, ?), (?, ?)',
     args: [
-      'site', JSON.stringify(seed.settings ?? {}),
-      'navigation', JSON.stringify(seed.navigation ?? []),
-      'home', JSON.stringify({ trustStats: seed.trustStats ?? [], advantages: seed.advantages ?? [] }),
-      'about', JSON.stringify(seed.about ?? {}),
+      'site', JSON.stringify(data.settings ?? {}),
+      'navigation', JSON.stringify(data.navigation ?? []),
+      'home', JSON.stringify({ trustStats: data.trustStats ?? [], advantages: data.advantages ?? [] }),
+      'about', JSON.stringify(data.about ?? {}),
       'admin_password', JSON.stringify({
         hash: bcrypt.hashSync(process.env.ADMIN_PASSWORD || 'admin123', 10),
       }),
     ],
   });
 
-  const cats = (seed.categories ?? []) as { id: string; slug: string; name: string; description: string }[];
+  const cats = (data.categories ?? []) as { id: string; slug: string; name: string; description: string }[];
   for (let i = 0; i < cats.length; i++) {
     const cat = cats[i];
     await c.execute({
@@ -79,7 +95,7 @@ async function init(): Promise<void> {
     });
   }
 
-  const products = (seed.products ?? []) as Record<string, unknown>[];
+  const products = (data.products ?? []) as Record<string, unknown>[];
   for (let i = 0; i < products.length; i++) {
     const p = products[i];
     await c.execute({
@@ -96,7 +112,7 @@ async function init(): Promise<void> {
     });
   }
 
-  const banners = (seed.banners ?? []) as Record<string, unknown>[];
+  const banners = (data.banners ?? []) as Record<string, unknown>[];
   for (let i = 0; i < banners.length; i++) {
     const b = banners[i];
     await c.execute({
@@ -105,7 +121,7 @@ async function init(): Promise<void> {
     });
   }
 
-  const cases = (seed.cases ?? []) as Record<string, unknown>[];
+  const cases = (data.cases ?? []) as Record<string, unknown>[];
   for (let i = 0; i < cases.length; i++) {
     const cs = cases[i];
     await c.execute({
@@ -114,7 +130,7 @@ async function init(): Promise<void> {
     });
   }
 
-  const news = (seed.news ?? []) as Record<string, unknown>[];
+  const news = (data.news ?? []) as Record<string, unknown>[];
   for (let i = 0; i < news.length; i++) {
     const n = news[i];
     await c.execute({
