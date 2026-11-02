@@ -1,6 +1,15 @@
 # 路线图（Roadmap）
 
 > 对应总体规划的 P1–P7 阶段。每阶段完成勾选并附提交记录。
+> **v0.1.0 已发布**：https://github.com/kalee777777/AI-Trade-OfficialSite-Admin/releases/tag/v0.1.0
+
+## P7 GitHub 上架（✅ 2026-11-02）
+
+- [x] 公开仓库 <https://github.com/kalee777777/AI-Trade-OfficialSite-Admin>，CI 门禁（泄密审计 + 构建）实测通过
+- [x] v0.1.0 Release 发布
+- [x] Demo 站机制就绪：`POST /api/demo/reset`（token 鉴权）+ `.github/workflows/demo-reset.yml` 每日 09:00（北京时间）自动重置——部署 Demo 时配好 `DEMO_URL`/`DEMO_RESET_TOKEN` 两个 Secret 与站点同名环境变量即生效
+- [x] 修复 CI 实战拦截的冷启动并发问题（SQLITE_BUSY）：cpus:1 串行构建 + busy_timeout/WAL + 种子幂等
+- [ ] Demo 站实际部署（Vercel + Turso，配 reset secrets）——待录制课程时执行
 
 ## P1 独立站前台（✅ 2026-11-02）
 
