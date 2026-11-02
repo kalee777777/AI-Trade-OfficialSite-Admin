@@ -12,6 +12,14 @@
 - [x] 询盘表单（蜜罐+耗时+限流防垃圾）+ `POST /api/inquiries` 本地落盘
 - [x] 全部占位内容标注 `[PLACEHOLDER]`，SVG 占位图自产
 
+## P1.5 UI 组件库内置（✅ 2026-11-02，应用户需求在 P2 前插入）
+
+- [x] shadcn/ui 基座：HSL token 体系（品牌色/语义色统一）、cn() 工具、components.json（CLI 可追加组件）、tailwindcss-animate
+- [x] 16 个组件进仓库：button / input / textarea / label / select / badge / card / accordion / tabs / dialog / sheet / dropdown-menu / table / breadcrumb / separator / skeleton
+- [x] 页面换装：全站 CTA→Button、询盘表单→Input/Textarea/Label、FAQ→Accordion（无障碍+动画，SEO 不受影响）、移动导航→Sheet 侧边抽屉、规格表→Table、产品卡→Card、面包屑→shadcn Breadcrumb
+- [x] 全局语义对齐：text-muted → text-muted-foreground（shadcn 约定，AI 生成代码零适配）
+- [x] 回归：build 22 页全静态、JSON-LD 4 块完好、询盘 API/蜜罐正常
+
 ## P2 Admin 后台（进行中 → 计划 11/08–11/12）
 
 - [ ] `/admin` 路由组（noindex）+ iron-session 鉴权（ADMIN_PASSWORD）

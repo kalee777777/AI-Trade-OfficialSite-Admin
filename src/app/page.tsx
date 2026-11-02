@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ProductCard from '@/components/ProductCard';
+import { Button } from '@/components/ui/button';
 import {
   getBanners, getTrustStats, getAdvantages, getProducts,
   getCases, getNews, getSettings,
@@ -30,13 +31,8 @@ export default function HomePage() {
               {hero.subtitle}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link href={hero.ctaHref} className="btn-primary">{hero.ctaText}</Link>
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-md border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Browse Products
-              </Link>
+              <Button asChild size="lg"><Link href={hero.ctaHref}>{hero.ctaText}</Link></Button>
+              <Button asChild size="lg" variant="secondary"><Link href="/products">Browse Products</Link></Button>
             </div>
           </div>
           <div className="overflow-hidden rounded-lg">
@@ -57,7 +53,7 @@ export default function HomePage() {
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-3xl font-extrabold text-brand">{stat.value}</p>
-              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted">{stat.label}</p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -68,7 +64,7 @@ export default function HomePage() {
         <div className="mb-8 text-center">
           <p className="section-eyebrow">Our Products</p>
           <h2 className="section-title">Core Products</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-muted">
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-muted-foreground">
             Factory-direct manufacturing with stable quality and OEM support.
           </p>
         </div>
@@ -78,7 +74,7 @@ export default function HomePage() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Link href="/products" className="btn-outline">View All Products</Link>
+          <Button asChild variant="outline"><Link href="/products">View All Products</Link></Button>
         </div>
       </section>
 
@@ -96,7 +92,7 @@ export default function HomePage() {
                   {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="mt-4 text-base font-bold text-ink">{adv.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{adv.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{adv.description}</p>
               </div>
             ))}
           </div>
@@ -116,8 +112,8 @@ export default function HomePage() {
             />
             <div className="p-8 md:pr-12">
               <h2 className="text-2xl font-bold text-ink">{secondary.title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{secondary.subtitle}</p>
-              <Link href={secondary.ctaHref} className="btn-outline mt-6">{secondary.ctaText}</Link>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{secondary.subtitle}</p>
+              <Button asChild variant="outline" className="mt-6"><Link href={secondary.ctaHref}>{secondary.ctaText}</Link></Button>
             </div>
           </div>
         </section>
@@ -141,9 +137,9 @@ export default function HomePage() {
                 />
               </div>
               <div className="p-6">
-                <p className="text-xs text-muted">{c.date}</p>
+                <p className="text-xs text-muted-foreground">{c.date}</p>
                 <h3 className="mt-1 text-base font-bold text-ink group-hover:text-brand">{c.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm text-muted">{c.summary}</p>
+                <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{c.summary}</p>
               </div>
             </Link>
           ))}
@@ -159,9 +155,9 @@ export default function HomePage() {
         <div className="grid gap-6 md:grid-cols-3">
           {news.map((n) => (
             <Link key={n.slug} href={`/news/${n.slug}`} className="card group p-6 hover:shadow-lg">
-              <p className="text-xs text-muted">{n.date}</p>
+              <p className="text-xs text-muted-foreground">{n.date}</p>
               <h3 className="mt-1 text-base font-bold text-ink group-hover:text-brand">{n.title}</h3>
-              <p className="mt-2 line-clamp-3 text-sm text-muted">{n.summary}</p>
+              <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{n.summary}</p>
             </Link>
           ))}
         </div>
@@ -175,12 +171,9 @@ export default function HomePage() {
             Send us your requirements — specifications, quantity and destination port — and get a
             factory-direct quotation within 24 hours.
           </p>
-          <Link
-            href="/inquiry"
-            className="mt-8 inline-flex items-center justify-center rounded-md bg-white px-8 py-3 text-sm font-bold text-brand transition-colors hover:bg-brand-tint"
-          >
-            Get a Free Quotation
-          </Link>
+          <Button asChild size="lg" variant="secondary">
+            <Link href="/inquiry">Get a Free Quotation</Link>
+          </Button>
         </div>
       </section>
     </>

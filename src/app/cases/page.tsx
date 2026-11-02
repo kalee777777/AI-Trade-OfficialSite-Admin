@@ -29,9 +29,9 @@ export default function CasesPage() {
               />
             </div>
             <div className="p-6">
-              <p className="text-xs text-muted">{c.date}</p>
+              <p className="text-xs text-muted-foreground">{c.date}</p>
               <h2 className="mt-1 text-base font-bold text-ink group-hover:text-brand">{c.title}</h2>
-              <p className="mt-2 line-clamp-3 text-sm text-muted">{c.summary}</p>
+              <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{c.summary}</p>
             </div>
           </Link>
         ))}

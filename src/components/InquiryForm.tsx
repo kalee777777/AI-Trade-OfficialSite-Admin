@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 export interface FormProductOption {
   name: string;
@@ -13,6 +17,7 @@ export interface FormProductOption {
  * 询盘表单（询盘页 / 产品页 CTA / 联系页共用）。
  * 产品下拉与站点产品数据同源（分组 optgroup），URL 带 ?product=<slug> 时自动预选。
  * 防垃圾：honeypot 隐藏字段 + 提交耗时检测（服务端复核）。
+ * 注：产品选择保留原生 select（移动端体验 + optgroup 分组）；ui/Select 供 Admin 后台使用。
  */
 export default function InquiryForm({
   productOptions,
@@ -82,12 +87,12 @@ export default function InquiryForm({
       <div className="card p-8 text-center">
         <p className="text-3xl" aria-hidden="true">✅</p>
         <h3 className="mt-2 text-lg font-bold text-ink">Thank you! Your inquiry has been received.</h3>
-        <p className="mt-2 text-sm text-muted">
+        <p className="mt-2 text-sm text-muted-foreground">
           We will reply within 24 hours (usually much faster). For urgent needs, contact us on WhatsApp.
         </p>
-        <button type="button" className="btn-outline mt-6" onClick={() => setStatus('idle')}>
+        <Button variant="outline" className="mt-6" onClick={() => setStatus('idle')}>
           Send Another Inquiry
-        </button>
+        </Button>
       </div>
     );
   }
@@ -96,61 +101,60 @@ export default function InquiryForm({
     <form onSubmit={handleSubmit} className="card p-6 sm:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="inq-name" className="mb-1 block text-sm font-semibold text-ink">
-            Your Name <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Label htmlFor="inq-name" className="mb-1 block">
+            Your Name <span className="text-destructive">*</span>
+          </Label>
+          <Input
             id="inq-name" required maxLength={100}
-            className="field" value={form.name}
+            value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="John Smith"
           />
         </div>
         <div>
-          <label htmlFor="inq-email" className="mb-1 block text-sm font-semibold text-ink">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Label htmlFor="inq-email" className="mb-1 block">
+            Email <span className="text-destructive">*</span>
+          </Label>
+          <Input
             id="inq-email" type="email" required maxLength={200}
-            className="field" value={form.email}
+            value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="john@company.com"
           />
         </div>
         <div>
-          <label htmlFor="inq-company" className="mb-1 block text-sm font-semibold text-ink">Company</label>
-          <input
+          <Label htmlFor="inq-company" className="mb-1 block">Company</Label>
+          <Input
             id="inq-company" maxLength={200}
-            className="field" value={form.company}
+            value={form.company}
             onChange={(e) => setForm({ ...form, company: e.target.value })}
             placeholder="Company name"
           />
         </div>
         <div>
-          <label htmlFor="inq-country" className="mb-1 block text-sm font-semibold text-ink">Country</label>
-          <input
+          <Label htmlFor="inq-country" className="mb-1 block">Country</Label>
+          <Input
             id="inq-country" maxLength={100}
-            className="field" value={form.country}
+            value={form.country}
             onChange={(e) => setForm({ ...form, country: e.target.value })}
             placeholder="United States"
           />
         </div>
         <div>
-          <label htmlFor="inq-phone" className="mb-1 block text-sm font-semibold text-ink">Phone / WhatsApp</label>
-          <input
+          <Label htmlFor="inq-phone" className="mb-1 block">Phone / WhatsApp</Label>
+          <Input
             id="inq-phone" maxLength={50}
-            className="field" value={form.phone}
+            value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             placeholder="+1 555 000 0000"
           />
         </div>
         <div>
-          <label htmlFor="inq-product" className="mb-1 block text-sm font-semibold text-ink">
-            Product of Interest
-          </label>
+          <Label htmlFor="inq-product" className="mb-1 block">Product of Interest</Label>
           <select
             id="inq-product"
-            className="field" value={form.product}
+            className="field"
+            value={form.product}
             onChange={(e) => setForm({ ...form, product: e.target.value })}
           >
             <option value="">— Select a product —</option>
@@ -167,12 +171,12 @@ export default function InquiryForm({
           </select>
         </div>
         <div className="sm:col-span-2">
-          <label htmlFor="inq-message" className="mb-1 block text-sm font-semibold text-ink">
-            Message <span className="text-red-500">*</span>
-          </label>
-          <textarea
+          <Label htmlFor="inq-message" className="mb-1 block">
+            Message <span className="text-destructive">*</span>
+          </Label>
+          <Textarea
             id="inq-message" required rows={5} maxLength={3000}
-            className="field" value={form.message}
+            value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             placeholder="Please describe your requirements: product, specifications, quantity, target price, destination port..."
           />
@@ -190,13 +194,13 @@ export default function InquiryForm({
       </div>
 
       {status === 'error' && (
-        <p className="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+        <p className="mt-4 rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">{error}</p>
       )}
 
-      <button type="submit" disabled={status === 'sending'} className="btn-primary mt-6 w-full sm:w-auto">
+      <Button type="submit" disabled={status === 'sending'} className="mt-6 w-full sm:w-auto">
         {status === 'sending' ? 'Sending...' : 'Submit Inquiry'}
-      </button>
-      <p className="mt-3 text-xs text-muted">
+      </Button>
+      <p className="mt-3 text-xs text-muted-foreground">
         We reply within 24 hours. Your information is only used to respond to this inquiry.
       </p>
     </form>

@@ -11,13 +11,14 @@
 ## ✨ 核心特性
 
 - **开箱即用的外贸站结构**：首页 / 产品（分类+详情）/ 关于 / 案例 / 新闻 / 询盘 / 联系，全站英文（面向海外买家）
+- **内置 shadcn/ui 组件库（MIT）**：16 个常用组件源码直接进仓库（Button/表单/Card/Accordion/Sheet/Dialog/Table 等），AI 工具最熟悉，改样式/加组件零门槛；`components.json` 已配好，`npx shadcn@latest add xxx` 可继续追加
 - **零代码 Admin 后台**（P2 开发中）：产品 / 询盘 / 内容 / 站点设置全部后台可视化修改
 - **SEO 全套内建**：全站 SSG 静态生成、每页独立 meta、自动 sitemap.xml / robots.txt、JSON-LD 结构化数据（Organization / Product / Article / Breadcrumb / FAQ）
 - **GEO 前瞻**（让 AI 搜索推荐你）：放行主流 AI 爬虫（GPTBot / ClaudeBot / PerplexityBot…）、自动生成 `llms.txt`、产品页「可直引规格句」区块
 - **询盘获客闭环**：智能询盘表单（蜜罐 + 限流防垃圾）→ 落库 → Admin 管理 / CSV 导出 → API 同步到 AI-Trade-Workbench
 - **产品数据三处联动**：Admin 改一次产品 → 导航下拉、产品页、询盘表单选项自动更新
 - **占位内容规范**：Product A / B / C / D 占位体系，全部标注 `[PLACEHOLDER]`，内置 SVG 占位图零版权风险
-- **一键换肤**：品牌色等设计 token 集中在 `globals.css`，改 4 个变量全站生效（或让 AI 帮你改）
+- **一键换肤**：品牌色等设计 token 集中在 `globals.css`（HSL 变量），改 4 个变量全站生效（或让 AI 帮你改）
 
 ## 🚀 快速开始（本地）
 

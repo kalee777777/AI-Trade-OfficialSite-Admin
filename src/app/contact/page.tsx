@@ -68,7 +68,7 @@ export default function ContactPage() {
         <div className="lg:col-span-2">
           <h2 className="section-title text-xl">Leave a Message</h2>
           <div className="mt-6">
-            <Suspense fallback={<div className="card p-8 text-sm text-muted">Loading form…</div>}>
+            <Suspense fallback={<div className="card p-8 text-sm text-muted-foreground">Loading form…</div>}>
               <InquiryForm productOptions={productOptions} source="contact-page" />
             </Suspense>
           </div>

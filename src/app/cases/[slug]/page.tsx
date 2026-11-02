@@ -31,7 +31,7 @@ export default function CaseDetailPage({ params }: { params: { slug: string } })
     <div className="container-x py-10">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Case Studies', href: '/cases' }, { label: c.title }]} />
       <article>
-        <p className="text-xs text-muted">{c.date}</p>
+        <p className="text-xs text-muted-foreground">{c.date}</p>
         <h1 className="mt-1 text-2xl font-extrabold text-ink sm:text-3xl">{c.title}</h1>
 
         <div className="mt-8 overflow-hidden rounded-lg border border-line bg-brand-tint">
@@ -41,7 +41,7 @@ export default function CaseDetailPage({ params }: { params: { slug: string } })
 
         <div className="mt-8 max-w-3xl">
           {c.content.map((para, i) => (
-            <p key={i} className="mt-4 text-sm leading-relaxed text-muted">{para}</p>
+            <p key={i} className="mt-4 text-sm leading-relaxed text-muted-foreground">{para}</p>
           ))}
         </div>
 

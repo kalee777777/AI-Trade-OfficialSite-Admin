@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InquiryForm from '@/components/InquiryForm';
+import { Button } from '@/components/ui/button';
 import { getCategories, getProducts, getSettings } from '@/lib/content';
 
 export const metadata: Metadata = {
@@ -24,14 +26,14 @@ export default function InquiryPage() {
     <div className="container-x py-10">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Inquiry' }]} />
       <h1 className="text-3xl font-extrabold text-ink">Send an Inquiry</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted">
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         Tell us what you need — product, specifications, quantity and destination port —
         and our export team will reply with a quotation within 24 hours.
       </p>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <Suspense fallback={<div className="card p-8 text-sm text-muted">Loading form…</div>}>
+          <Suspense fallback={<div className="card p-8 text-sm text-muted-foreground">Loading form…</div>}>
             <InquiryForm productOptions={productOptions} source="inquiry-page" />
           </Suspense>
         </div>
@@ -39,7 +41,7 @@ export default function InquiryPage() {
         <aside className="space-y-6">
           <div className="card bg-brand-tint p-6">
             <h2 className="text-base font-bold text-ink">Why inquire directly?</h2>
-            <ul className="mt-3 space-y-2 text-sm text-muted">
+            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li>✔ Factory-direct quotation, no middlemen</li>
               <li>✔ Reply within 24 hours on business days</li>
               <li>✔ OEM/ODM customization supported</li>
@@ -48,14 +50,15 @@ export default function InquiryPage() {
           </div>
           <div className="card p-6">
             <h2 className="text-base font-bold text-ink">Prefer instant chat?</h2>
-            <a
-              href={`https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}`}
-              target="_blank" rel="noopener noreferrer"
-              className="btn-primary mt-4 w-full"
-            >
-              WhatsApp Us Now
-            </a>
-            <p className="mt-3 text-xs text-muted">Or email: {settings.email}</p>
+            <Button asChild className="mt-4 w-full">
+              <a
+                href={`https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}`}
+                target="_blank" rel="noopener noreferrer"
+              >
+                WhatsApp Us Now
+              </a>
+            </Button>
+            <p className="mt-3 text-xs text-muted-foreground">Or email: {settings.email}</p>
           </div>
         </aside>
       </div>

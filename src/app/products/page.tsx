@@ -17,7 +17,7 @@ export default function ProductsPage() {
     <div className="container-x py-10">
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Products' }]} />
       <h1 className="text-3xl font-extrabold text-ink">Products</h1>
-      <p className="mt-2 max-w-2xl text-sm text-muted">
+      <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
         All products are manufactured in-house with OEM/ODM support. Click any product for full specifications.
       </p>
 
@@ -25,7 +25,7 @@ export default function ProductsPage() {
         <section key={category.slug} className="mt-12">
           <div className="mb-6 border-l-4 border-brand pl-4">
             <h2 className="text-xl font-bold text-ink">{category.name}</h2>
-            <p className="mt-1 text-sm text-muted">{category.description}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{category.description}</p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((p) => (

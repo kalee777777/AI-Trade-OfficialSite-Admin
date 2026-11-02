@@ -3,7 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ProductCard from '@/components/ProductCard';
+import FaqAccordion from '@/components/FaqAccordion';
 import JsonLd from '@/components/JsonLd';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+} from '@/components/ui/table';
 import { getProducts, getProductBySlug, getCategoryBySlug, getRelatedProducts, getSettings, getSiteUrl } from '@/lib/content';
 
 export function generateStaticParams() {
@@ -83,7 +89,7 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
       />
 
       <div className="grid gap-10 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-lg border border-line bg-brand-tint">
+        <div className="overflow-hidden rounded-lg border border-line bg-accent">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={product.image}
@@ -93,52 +99,54 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           />
         </div>
         <div>
+          {category && <Badge variant="brand" className="mb-3">{category.name}</Badge>}
           <h1 className="text-3xl font-extrabold text-ink">{product.name}</h1>
           <p className="mt-2 text-base text-brand">{product.tagline}</p>
           {product.description.map((para, i) => (
-            <p key={i} className="mt-4 text-sm leading-relaxed text-muted">{para}</p>
+            <p key={i} className="mt-4 text-sm leading-relaxed text-muted-foreground">{para}</p>
           ))}
           <div className="mt-6 flex flex-wrap gap-4">
-            <Link href={`/inquiry?product=${product.slug}`} className="btn-primary">
-              Inquiry This Product
-            </Link>
-            <a
-              href={`https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}?text=${encodeURIComponent(`Hello, I am interested in ${product.name}.`)}`}
-              target="_blank" rel="noopener noreferrer"
-              className="btn-outline"
-            >
-              Chat on WhatsApp
-            </a>
+            <Button asChild>
+              <Link href={`/inquiry?product=${product.slug}`}>Inquiry This Product</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <a
+                href={`https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}?text=${encodeURIComponent(`Hello, I am interested in ${product.name}.`)}`}
+                target="_blank" rel="noopener noreferrer"
+              >
+                Chat on WhatsApp
+              </a>
+            </Button>
           </div>
         </div>
       </div>
 
       {/* 可直引规格句（GEO）：完整规格的一句话表述，AI 搜索可直接引用 */}
-      <section className="mt-12 rounded-lg border border-brand-light bg-brand-tint p-6">
+      <section className="mt-12 rounded-lg border border-brand-light bg-accent p-6">
         <p className="text-xs font-bold uppercase tracking-widest text-brand">Quick Spec</p>
         <p className="mt-2 text-base font-medium leading-relaxed text-ink">{product.quotableLine}</p>
       </section>
 
-      {/* 规格参数表 */}
+      {/* 规格参数表（shadcn/ui Table） */}
       <section className="mt-12">
         <h2 className="section-title">Specifications</h2>
-        <div className="card mt-6 overflow-x-auto">
-          <table className="table-spec">
-            <thead>
-              <tr>
-                <th style={{ width: '30%' }}>Parameter</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className="card mt-6">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[30%] bg-accent font-semibold text-ink">Parameter</TableHead>
+                <TableHead className="bg-accent font-semibold text-ink">Value</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {product.specs.map((s) => (
-                <tr key={s.param}>
-                  <td className="font-semibold">{s.param}</td>
-                  <td>{s.value}</td>
-                </tr>
+                <TableRow key={s.param}>
+                  <TableCell className="font-semibold text-ink">{s.param}</TableCell>
+                  <TableCell className="text-muted-foreground">{s.value}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </section>
 
@@ -149,26 +157,17 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
           {product.features.map((f, i) => (
             <li key={i} className="card flex items-start gap-3 p-4">
               <span className="mt-0.5 text-brand" aria-hidden="true">✔</span>
-              <span className="text-sm leading-relaxed text-muted">{f}</span>
+              <span className="text-sm leading-relaxed text-muted-foreground">{f}</span>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* FAQ（原生 details/summary，无需 JS；同步输出 FAQPage JSON-LD） */}
+      {/* FAQ（Radix 手风琴，内容始终在 DOM 中；FAQPage JSON-LD 已输出） */}
       <section className="mt-12">
         <h2 className="section-title">FAQ</h2>
-        <div className="mt-6 space-y-3">
-          {product.faq.map((f) => (
-            <details key={f.q} className="card group p-4">
-              <summary className="cursor-pointer list-none text-sm font-semibold text-ink marker:hidden">
-                <span className="mr-2 text-brand group-open:hidden" aria-hidden="true">＋</span>
-                <span className="mr-2 hidden text-brand group-open:inline" aria-hidden="true">－</span>
-                {f.q}
-              </summary>
-              <p className="mt-3 pl-6 text-sm leading-relaxed text-muted">{f.a}</p>
-            </details>
-          ))}
+        <div className="card mt-6 px-6">
+          <FaqAccordion items={product.faq} productName={product.name} />
         </div>
       </section>
 

@@ -44,12 +44,12 @@ export default function NewsDetailPage({ params }: { params: { slug: string } })
       <JsonLd data={articleJsonLd} />
       <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'News', href: '/news' }, { label: n.title }]} />
       <article className="max-w-3xl">
-        <p className="text-xs text-muted">
+        <p className="text-xs text-muted-foreground">
           <time dateTime={n.date}>{n.date}</time>
         </p>
         <h1 className="mt-1 text-2xl font-extrabold text-ink sm:text-3xl">{n.title}</h1>
         {n.content.map((para, i) => (
-          <p key={i} className="mt-4 text-sm leading-relaxed text-muted">{para}</p>
+          <p key={i} className="mt-4 text-sm leading-relaxed text-muted-foreground">{para}</p>
         ))}
       </article>
     </div>
