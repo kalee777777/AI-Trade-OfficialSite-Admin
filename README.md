@@ -32,11 +32,14 @@
 ## 🚀 快速开始（本地）
 
 ```bash
-git clone <本仓库地址>
-cd ai-trade-officialsite-admin
+git clone https://github.com/kalee777777/AI-Trade-OfficialSite-Admin.git
+cd AI-Trade-OfficialSite-Admin
 npm install        # 国内网络慢可用: npm install --registry=https://registry.npmmirror.com
 npm run dev        # 打开 http://localhost:3000
 ```
+
+> 全程零配置：首次启动自动建本地数据库并灌入模板内容（Product A–D），拉下来就能改。
+> 部署上线（Vercel/Turso）是**可选**的进阶步骤，见 [docs/DEPLOY.md](docs/DEPLOY.md)。
 
 ## 📦 部署上线（三选一）
 
