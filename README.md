@@ -53,7 +53,9 @@ npm run dev        # 打开 http://localhost:3000
 
 ## 🤖 用 AI 改站（不用会写代码）
 
-仓库内置全套 AI 修改提示词（P5 阶段提供 `prompts/` 目录）：换品牌色、批量替换产品文案、新增页面、SEO 优化——把提示词丢给 CodeX / WorkBuddy / Trae 即可。
+**组件效果预览**：`npm run dev` 后访问 <http://localhost:3000/showcase> —— 全部内置组件实况演示 + 5 套主题风格一键试穿（工业蓝/活力橙/森林绿/琥珀金/科技紫），每个效果旁边就是可复制的定制提示词。
+
+**提示词手册**：[`prompts/ui-swap.md`](prompts/ui-swap.md) —— 换品牌色（改 4 个变量）、换圆角风格、Banner 改轮播、加暗色模式、新增任意 shadcn 组件、改坏了 git 一键还原，全部提示词写好待复制。配套更完整的场景提示词库（开发信/询盘回复等业务向）随课程提供。
 
 ## 📄 License
 

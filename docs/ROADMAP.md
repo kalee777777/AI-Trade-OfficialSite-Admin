@@ -20,6 +20,12 @@
 - [x] 全局语义对齐：text-muted → text-muted-foreground（shadcn 约定，AI 生成代码零适配）
 - [x] 回归：build 22 页全静态、JSON-LD 4 块完好、询盘 API/蜜罐正常
 
+## P1.6 组件演示页 + UI 提示词手册（✅ 2026-11-02，P5 首块提前交付）
+
+- [x] `/showcase` 演示页（noindex + robots disallow）：16 组件实况演示、每区附定制提示词、5 套主题预设一键试穿（ThemePresetSwitcher 直接写 <html> 行内变量，全站即时换肤）
+- [x] `prompts/ui-swap.md` 提示词手册：预设换肤/任意品牌色换肤/圆角风格/组件目录/高频场景（轮播/暗色/加组件/删演示页）/git 兜底/下指令三军规
+- [x] 效果图预览：`docs/assets/` 7 张（5 预设首页 + 产品详情页 + 演示页全览，playwright 自动生成，`scripts/screenshot-ui.mjs` 可重复执行）
+
 ## P2 Admin 后台（进行中 → 计划 11/08–11/12）
 
 - [ ] `/admin` 路由组（noindex）+ iron-session 鉴权（ADMIN_PASSWORD）
