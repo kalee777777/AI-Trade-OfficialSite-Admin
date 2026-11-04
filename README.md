@@ -1,4 +1,12 @@
-# AI Trade Official Site（带 Admin 后台的外贸独立站模板）
+## ✨ 核心特性
+## 📦 获取项目（国内优先 gitee）
+
+```bash
+git clone https://gitee.com/kestrelmetal_0/AI-Trade-OfficialSite-Admin.git   # 国内快
+git clone https://github.com/kalee777777/AI-Trade-OfficialSite-Admin.git     # 备选
+```
+
+ Official Site（带 Admin 后台的外贸独立站模板）
 
 > English: An SEO/GEO-friendly B2B foreign-trade website template with a full Admin panel. Fork, replace placeholders, deploy — no coding needed to go live. (中文文档如下)
 
