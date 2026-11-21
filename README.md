@@ -1,18 +1,19 @@
-## ✨ 核心特性
+# AI Trade Official Site（带 Admin 后台的外贸独立站模板）
+
+> English: An SEO/GEO-friendly B2B foreign-trade website template with a full Admin panel. Fork, replace placeholders, deploy — no coding needed to go live. (中文文档如下)
+
+![License](https://img.shields.io/badge/license-MIT-blue) ![Framework](https://img.shields.io/badge/Next.js-14-black) ![Admin](https://img.shields.io/badge/Admin-zero--code-orange) ⭐ **Star 本仓库 = 支持持续更新**
+
+一个 **SEO / GEO 友好** 的 B2B 外贸独立站模板，自带完整 Admin 管理后台。面向外贸业务员与中小工厂：拉取模板 → 替换占位内容 → 一键部署，无需写代码即可上线自己的品牌获客站。
+
+配套姊妹项目：**[AI-Trade-Workbench](../AI-Trade-Workbench)**（AI 外贸业务员工作台）——独立站收到的询盘可通过 API 同步进工作台统一跟进（见 `docs/CONTRACT-inquiry-sync.md`）。
+
 ## 📦 获取项目（国内优先 gitee）
 
 ```bash
 git clone https://gitee.com/kestrelmetal_0/AI-Trade-OfficialSite-Admin.git   # 国内快
 git clone https://github.com/kalee777777/AI-Trade-OfficialSite-Admin.git     # 备选
 ```
-
- Official Site（带 Admin 后台的外贸独立站模板）
-
-> English: An SEO/GEO-friendly B2B foreign-trade website template with a full Admin panel. Fork, replace placeholders, deploy — no coding needed to go live. (中文文档如下)
-
-一个 **SEO / GEO 友好** 的 B2B 外贸独立站模板，自带完整 Admin 管理后台。面向外贸业务员与中小工厂：拉取模板 → 替换占位内容 → 一键部署，无需写代码即可上线自己的品牌获客站。
-
-配套姊妹项目：**[AI-Trade-Workbench](../AI-Trade-Workbench)**（AI 外贸业务员工作台）——独立站收到的询盘可通过 API 同步进工作台统一跟进（见 `docs/CONTRACT-inquiry-sync.md`）。
 
 ---
 
@@ -88,6 +89,10 @@ npm run dev        # 打开 http://localhost:3000
 | [设计规范 DESIGN](docs/DESIGN.md) | 设计令牌换肤 + 16 个内置组件清单 |
 | [同步契约 CONTRACT](docs/CONTRACT-inquiry-sync.md) | 询盘同步 API v1（与工作台仓库同文） |
 | [录屏脚本 VIDEO-SCRIPT](docs/VIDEO-SCRIPT.md) | 5 分钟部署演示视频分镜（供录制） |
+
+## ⭐ 支持这个项目
+
+如果这套模板帮你省下一周建站时间，欢迎点右上角 **Star** —— 这是开源持续更新的最大动力。想要「跟着做一遍」的完整实训（部署上线 · 换装定制 · 询盘闭环 · 批改认证）与更完整的业务提示词库，随配套训练营提供。
 
 ## 📄 License
 
