@@ -29,6 +29,12 @@ const SKIP = [
   'public/placeholders/',
 ];
 
+// 精确放行：gitee 公开镜像完整地址（org 名含品牌词，但镜像本身是有意公开的国内加速入口）
+const ALLOW = [
+  'gitee.com/kestrelmetal_0/AI-Trade-Workbench',
+  'gitee.com/kestrelmetal_0/AI-Trade-OfficialSite-Admin',
+];
+
 const files = execSync('git ls-files', { cwd: REPO_ROOT, encoding: 'utf-8' })
   .split('\n').map((s) => s.trim()).filter(Boolean);
 
@@ -43,8 +49,9 @@ for (const file of files) {
   }
   const lines = content.split('\n');
   lines.forEach((line, i) => {
+    const clean = ALLOW.reduce((l, a) => l.split(a).join(''), line);
     for (const rule of RULES) {
-      if (rule.pattern.test(line)) {
+      if (rule.pattern.test(clean)) {
         hits++;
         console.error(`✗ [${rule.name}] ${file}:${i + 1}: ${line.trim().slice(0, 100)}`);
       }
